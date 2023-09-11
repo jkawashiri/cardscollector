@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Cards List</h1>
+
+{% for card in cards %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ card.name }}</span>
+      <p>Year: {{ card.year }}</p>
+      <p>Type: {{ card.type }}</p>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}
