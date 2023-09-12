@@ -7,20 +7,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Cards Collector</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-  <header class="navbar-fixed">
+  <header>
     <nav>
       <div class="nav-wrapper">
-        <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Cards Collector</a></li>
-        </ul>
-        <ul class="right">
-          <li><a href="/about">About</a></li>
-          <li><a href="/cards">All Cards</a></li>
-        </ul>
+        <a href="/" class="navbar-item">Cards Collector</a>
+        <div class="right-nav-wrapper">
+            <a href="/about" class="navbar-item">About</a>
+            <a href="/cards" class="navbar-item">All Cards</a>
+        </div>
       </div>
     </nav>
   </header>
