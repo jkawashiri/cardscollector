@@ -10,6 +10,10 @@
         <p>Type: {{ card.type }}</p>
         <p>Value: ${{ card.value }}</p>
     </div>
+    <div class="card-action">
+        <a href="{% url 'cards_update' card.id %}">Edit</a>
+        <a href="{% url 'cards_delete' card.id %}">Delete</a>
+    </div>
 </div>
 
 {% endblock %}

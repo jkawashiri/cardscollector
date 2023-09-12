@@ -16,10 +16,11 @@
   <header>
     <nav>
       <div class="nav-wrapper">
-        <a href="/" class="navbar-item">Cards Collector</a>
+        <a href="{% url 'home' %}" class="navbar-item">Cards Collector</a>
         <div class="right-nav-wrapper">
-            <a href="/about" class="navbar-item">About</a>
-            <a href="/cards" class="navbar-item">All Cards</a>
+            <a href="{% url 'about' %}" class="navbar-item">About</a>
+            <a href="{% url 'cards_create' %}" class="navbar-item">Add a Card</a>
+            <a href="{% url 'index' %}" class="navbar-item">All Cards</a>
         </div>
       </div>
     </nav>
