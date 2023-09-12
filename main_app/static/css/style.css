@@ -42,14 +42,14 @@ footer.page-footer {
     padding-right: 10px;
 }
 
-a {
+a.navbar-item {
     text-decoration: none;
     text-align: center;
     color: white;
     height: 100%;
 }
 
-a:hover {
+a.navbar-item:hover {
     background-color: rgb(0, 78, 179);
     transition: 0.3s;
 }
@@ -81,4 +81,13 @@ h1 {
 #about {
     margin-left: 10px;
     margin-right: 10px;
+}
+
+a.index {
+    text-decoration: none;
+    color: blue;
+}
+
+p.name {
+    font-size: 20px;
 }

@@ -1,10 +1,6 @@
 from django.shortcuts import render
 
-cards = [
-    {'name': 'Lebron James', 'year': 2003, 'type': 'Topps Chrome'},
-    {'name': 'Shohei Ohtani', 'year': 2018, 'type': 'Bowman Chrome Autograph'},
-    {'name': 'Tiger Woods', 'year': 2001, 'type': 'SP Authentic Autograph'},
-]
+from .models import Card
 
 # Create your views here.
 def home(request):
@@ -14,6 +10,13 @@ def about(request):
     return render(request, 'about.html')
 
 def cards_index(request):
-    return render(request, 'cards/index.html', {
+    cards = Card.objects.all()
+    return render(request, 'cards/index.html', 
+    {
         'cards': cards
-    })
+    }
+)
+
+def cards_detail(request, card_id):
+    card = Card.objects.get(id=card_id)
+    return render(request, 'cards/detail.html', { 'card': card })

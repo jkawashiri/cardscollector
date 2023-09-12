@@ -1,19 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Cards List</h1>
+<h1>Cards Details</h1>
 
-{% for card in cards %}
-  <div class="card">
-    <a href="{% url 'detail' card.id %}" class="index">
-      <div class="card-content">
+<div class="card">
+    <div class="card-content">
         <p class="name">{{ card.name }}</p>
         <p>Year: {{ card.year }}</p>
         <p>Type: ${{ card.type }}</p>
         <p>Value: ${{ card.value }}</p>
-      </div>
-    </a>
-  </div>
-{% endfor %}
+    </div>
+</div>
 
 {% endblock %}
