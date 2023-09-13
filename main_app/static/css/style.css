@@ -88,6 +88,72 @@ a.index {
     color: #4da9ff;
 }
 
+a.index:hover {
+    color: #0077e6;
+    transition: 0.3s;
+}
+
 p.name {
     font-size: 20px;
+}
+
+.card-form {
+    margin-left: 10px;
+}
+
+.form-table {
+    margin-bottom: 10px;
+    border-spacing: 0 10px;
+}
+
+.form-table th {
+    text-align: left;
+}
+
+.form-table input {
+    padding:10px;
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    border-radius: 10px;
+    width: 400px;
+}
+
+.btn {
+    border-radius: 10px;
+    background-color: rgb(34, 155, 144);
+    color: white;
+    border: none;
+    min-height: 30px;
+    min-width: 120px;
+}
+
+.btn:hover {
+    background-color: rgb(23, 105, 97);
+    transition: 0.3s;
+}
+
+.card-action a {
+    font-size: 20px;
+    text-decoration: none;
+    margin-right: 10px;
+    color: rgb(255, 161, 56);
+}
+
+.card-action a:hover {
+    color: rgb(230, 121, 0);
+    transition: 0.3s;
+}
+
+#cancel {
+    color: #4da9ff;
+    text-decoration: none;
+}
+
+#cancel:hover {
+    color: #0077e6;
+    transition: 0.3s;
+}
+
+.confirm-delete {
+    margin-left: 10px;
 }
