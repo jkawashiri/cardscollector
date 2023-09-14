@@ -15,4 +15,23 @@ class Card(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk': self.pk})
     
+    def under_valued(self):
+        highest_bid = self.bid_set.order_by('-amount').first()
+        if highest_bid:
+            return highest_bid.amount > self.value
+    
+class Bid(models.Model):
+    date = models.DateField('purchase date')
+    amount = models.IntegerField()
+
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Placed bid of {self.amount} on {self.date}"
+    
+    class Meta:
+        ordering = ['-amount']
+
+
+    
 
