@@ -3,11 +3,22 @@ from django.db import models
 from django.urls import reverse
 
 # Create your models here.
+class Product(models.Model):
+    name = models.CharField()
+    value = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('products_detail', kwargs={'pk': self.id})
+
 class Card(models.Model):
     name = models.CharField()
     year = models.IntegerField()
     type = models.CharField()
     value = models.IntegerField()
+    products = models.ManyToManyField(Product)
 
     def __str__(self):
         return f'{self.name} ({self.id})'

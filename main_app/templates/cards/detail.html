@@ -51,4 +51,42 @@
     </div>
 </div>
 
+<div class="card">
+    <div class="card-content">
+        <h3>{{ card.name }}'s Related Products</h3>
+        {% if card.products.count %}
+            {% for product in card.products.all %}
+                <div class="card">
+                    <span class="card-title">
+                        {{ product.name }} - ${{ product.value }}
+                    </span>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h5>No Related Products</h5>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-content">
+    <h3>Available Products</h3>
+    {% if products.count %}
+        {% for product in products.all %}
+            <span class="card-title">
+                {{ product.name }} - ${{ product.value }}
+            </span>
+            <div class="card-action">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">Add</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h5>{{card.name}} Already Has All Products Available</h5>
+    {% endif %}
+</div>
+</div>
+
 {% endblock %}

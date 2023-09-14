@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Product Details</h1>
+
+<div class="card">
+    <div class="card-content">
+        <p class="name">{{ product.name }}</p>
+        <p>Value: ${{ product.value }}</p>
+    </div>
+    <div class="card-action">
+        <a href="{% url 'products_update' product.id %}">Edit</a>
+        <a href="{% url 'products_delete' product.id %}">Delete</a>
+    </div>
+</div>
+
+{% endblock %}

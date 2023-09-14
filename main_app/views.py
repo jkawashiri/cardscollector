@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Card
+from .models import Card, Product
 from .forms import BidForm
 
 # Create your views here.
@@ -23,12 +23,16 @@ class CardDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        card = self.object
+        id_list = card.products.all().values_list('id')
+        unrelated_products = Product.objects.exclude(id__in=id_list)
         context['bid_form'] = BidForm()
+        context['products'] = unrelated_products
         return context
 
 class CardCreate(CreateView):
     model = Card
-    fields = '__all__'
+    fields = ['name', 'year', 'type', 'value']
     success_url = '/cards'
 
 class CardUpdate(UpdateView):
@@ -46,3 +50,21 @@ def add_bid(request, card_id):
         new_bid.card_id = card_id
         new_bid.save()
     return redirect('detail', pk=card_id)
+
+class ProductList(ListView):
+  model = Product
+
+class ProductDetail(DetailView):
+  model = Product
+
+class ProductCreate(CreateView):
+  model = Product
+  fields = '__all__'
+
+class ProductUpdate(UpdateView):
+  model = Product
+  fields = ['name', 'value']
+
+class ProductDelete(DeleteView):
+  model = Product
+  success_url = '/products'
