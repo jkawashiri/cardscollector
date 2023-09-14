@@ -16,33 +16,39 @@
     </div>
 </div>
 
-<table>
-    <form action="{% url 'add_bid' card.id %}" method="POST">
-        {% csrf_token %}
-        {{ bid_form.as_p }}
-        <input type="submit" class="btn" value="Add Bid">
-    </form>
-    <br>
-    {% if card.bid_set.all %}
-        {% if card.under_valued %}
-            <div>{{card.name}} is undervaled!</div>
-        {% else %}
-            <div>{{card.name}} is overvalued!</div>
-        {% endif %}
-        <thead>
-        <tr><th>Purchase Date</th><th>Amount</th></tr>
-        </thead>
-        <tbody>
-        {% for bid in card.bid_set.all %}
-            <tr>
-            <td>{{bid.date}}</td>
-            <td>${{bid.amount}}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    {% else %}
-        <div>No bids yet</div>
-    {% endif %}
-  </table>
+<div class="bid-table">
+    <div class="card">
+        <div class="bid-content">
+            <table>
+                <form action="{% url 'add_bid' card.id %}" method="POST">
+                    {% csrf_token %}
+                    {{ bid_form.as_p }}
+                    <input type="submit" class="btn" value="Add Bid">
+                </form>
+                <br>
+                {% if card.bid_set.all %}
+                    {% if card.under_valued %}
+                        <div class="bid-message">{{card.name}} is undervaled!</div>
+                    {% else %}
+                        <div class="bid-message">{{card.name}} is overvalued!</div>
+                    {% endif %}
+                    <thead>
+                    <tr><th class="bid-table-head">Purchase Date</th><th class="bid-table-head">Amount</th></tr>
+                    </thead>
+                    <tbody>
+                    {% for bid in card.bid_set.all %}
+                        <tr>
+                        <td class="bid-table-body">{{bid.date}}</td>
+                        <td class="bid-table-body">${{bid.amount}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                {% else %}
+                    <div class="bid-message">No bids yet</div>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

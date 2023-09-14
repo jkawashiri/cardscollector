@@ -72,6 +72,12 @@ nav > div {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-left: 10px;
+}
+
+.card-action, .bid-content {
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 h1 {
@@ -156,4 +162,23 @@ p.name {
 
 .confirm-delete {
     margin-left: 10px;
+}
+
+.bid-table p input {
+    padding:10px;
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    border-radius: 10px;
+    width: 400px;
+}
+
+.bid-message {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.bid-table-head {
+    font-size: 18px;
+    padding-right: 20px;
 }
