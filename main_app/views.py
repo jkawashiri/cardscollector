@@ -68,3 +68,11 @@ class ProductUpdate(UpdateView):
 class ProductDelete(DeleteView):
   model = Product
   success_url = '/products'
+
+def assoc_product(request, card_id, product_id):
+   Card.objects.get(id=card_id).products.add(product_id)
+   return redirect('detail', pk=card_id)
+
+def unassoc_product(request, card_id, product_id):
+   Card.objects.get(id=card_id).products.remove(product_id)
+   return redirect('detail', pk=card_id)
