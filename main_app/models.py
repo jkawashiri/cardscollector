@@ -1,6 +1,6 @@
 from django.db import models
-
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Product(models.Model):
@@ -19,6 +19,7 @@ class Card(models.Model):
     type = models.CharField()
     value = models.IntegerField()
     products = models.ManyToManyField(Product)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.name} ({self.id})'

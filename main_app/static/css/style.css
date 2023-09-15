@@ -40,16 +40,13 @@ footer.page-footer {
 .navbar-item {
     padding-left: 10px;
     padding-right: 10px;
-}
-
-a.navbar-item {
     text-decoration: none;
     text-align: center;
     color: white;
     height: 100%;
 }
 
-a.navbar-item:hover {
+.navbar-item:hover {
     background-color: rgb(0, 78, 179);
     transition: 0.3s;
 }

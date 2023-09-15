@@ -6,6 +6,10 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Card, Product, Photo
 from .forms import BidForm
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 def home(request):
@@ -14,11 +18,15 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-class CardList(ListView):
+class CardList(LoginRequiredMixin, ListView):
     model = Card
     template_name = 'cards/index.html'
+    context_object_name = 'cards'
 
-class CardDetail(DetailView):
+    def get_queryset(self):
+       return Card.objects.filter(user=self.request.user)
+
+class CardDetail(LoginRequiredMixin, DetailView):
     model = Card
     template_name = 'cards/detail.html'
     context_object_name = 'card'
@@ -32,19 +40,24 @@ class CardDetail(DetailView):
         context['products'] = unrelated_products
         return context
 
-class CardCreate(CreateView):
+class CardCreate(LoginRequiredMixin, CreateView):
     model = Card
     fields = ['name', 'year', 'type', 'value']
     success_url = '/cards'
 
-class CardUpdate(UpdateView):
+    def form_valid(self, form):
+       form.instance.user = self.request.user
+       return super().form_valid(form)
+
+class CardUpdate(LoginRequiredMixin, UpdateView):
     model = Card
     fields = ['year', 'type', 'value']
 
-class CardDelete(DeleteView):
+class CardDelete(LoginRequiredMixin, DeleteView):
     model = Card
     success_url = '/cards'
 
+@login_required
 def add_bid(request, card_id):
     form = BidForm(request.POST)
     if form.is_valid():
@@ -53,32 +66,35 @@ def add_bid(request, card_id):
         new_bid.save()
     return redirect('detail', pk=card_id)
 
-class ProductList(ListView):
+class ProductList(LoginRequiredMixin, ListView):
   model = Product
 
-class ProductDetail(DetailView):
+class ProductDetail(LoginRequiredMixin, DetailView):
   model = Product
 
-class ProductCreate(CreateView):
+class ProductCreate(LoginRequiredMixin, CreateView):
   model = Product
   fields = '__all__'
 
-class ProductUpdate(UpdateView):
+class ProductUpdate(LoginRequiredMixin, UpdateView):
   model = Product
   fields = ['name', 'value']
 
-class ProductDelete(DeleteView):
+class ProductDelete(LoginRequiredMixin, DeleteView):
   model = Product
   success_url = '/products'
 
+@login_required
 def assoc_product(request, card_id, product_id):
    Card.objects.get(id=card_id).products.add(product_id)
    return redirect('detail', pk=card_id)
 
+@login_required
 def unassoc_product(request, card_id, product_id):
    Card.objects.get(id=card_id).products.remove(product_id)
    return redirect('detail', pk=card_id)
 
+@login_required
 def add_photo(request, card_id):
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
@@ -93,3 +109,17 @@ def add_photo(request, card_id):
             print('An error occurred uploading file to S3')
             print(e)
     return redirect('detail', pk=card_id)
+
+def signup(request):
+   error_message = ''
+   if request.method == 'POST':
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+        user = form.save()
+        login(request, user)
+        return redirect('index')
+    else:
+        error_message = 'Invalid sign up - try again'
+   form = UserCreationForm()
+   context = {'form': form, 'error_message': error_message}
+   return render(request, 'registration/signup.html', context)
